@@ -23,7 +23,7 @@ const AddTask = () => {
     }
 
     try {
-      await axios.post("http://localhost:3000/tasks", { title, description });
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/tasks`, { title, description });
       navigate("/"); // redirect user to tasklist
     } catch (err) {
       console.error("Error adding task:", err);

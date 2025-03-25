@@ -12,7 +12,7 @@ const TaskList = () => {
   // fetching all tasks
   const fetchTasks = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/tasks");
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/tasks`);
       setTasks(res.data.tasks);
     } catch (err) {
       console.error("Error fetching tasks:", err);
@@ -22,7 +22,7 @@ const TaskList = () => {
   // handle task deletion
   const handleDelete = async (taskId) => {
     try {
-      const response = await axios.delete(`http://localhost:3000/tasks/${taskId}`);
+      const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/tasks/${taskId}`);
       if (response.status === 200) {
         setTasks(tasks.filter((task) => task._id !== taskId));
       } else {

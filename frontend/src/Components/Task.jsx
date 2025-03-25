@@ -6,7 +6,7 @@ export default function Task({ task, onDelete, onUpdate }) {
 
   const handleToggleComplete = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/tasks/${task._id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/tasks/${task._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ completed: !completed }),
