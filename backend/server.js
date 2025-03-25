@@ -2,11 +2,20 @@ const express = require('express');
 const cors = require('cors')
 const Task = require('./db');
 const app = express();
-// const port = 3000;
+const port = process.env.PORT || 3000;
+
+const corsOptions = {
+  origin: process.env.FRONTEND_URL,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+app.use(cors(corsOptions))
+
+
+//default route
 
 app.get("/", (req, res) => {
   res.send("Server is running!");
@@ -52,7 +61,7 @@ app.post('/tasks', async (req, res) => {
     // await newTask.save()
 
     res.status(201).json({
-    //   id,
+      id: newTask._id,
       msg: 'Task successfully added.',
     });
   } catch (err) {
@@ -96,6 +105,12 @@ app.delete('/tasks/:id', async (req, res) => {
       res.status(500).json({ msg: "Error deleting task", error });
   }
 });
+
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+  
+})
 
 module.exports = app;
 
