@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
+//mongo connection
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     console.log('Successfully connected to MongoDB');
@@ -11,6 +12,8 @@ mongoose.connect(process.env.MONGO_URL)
   });
 
 
+
+// describing the mongo schema for task
 const TaskSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -29,6 +32,8 @@ const TaskSchema = new mongoose.Schema({
         default: false,
     }
 }, {timestamps: true})
+
+//creating model
 
 const Task = mongoose.model('Task', TaskSchema)
 

@@ -59,36 +59,19 @@ app.post('/tasks', async (req, res) => {
 // this endpoint is for updating already existing task
 
 app.put('/tasks/:id', async (req, res) => {
-  const { id } = req.params;
-  const { title, description, completed } = req.body;
-
-  if (!title || !description || completed === undefined) {
-    return res.status(400).json({
-      msg: 'Values are required.',
-    });
-  }
-
   try {
-    const task = await Task.findOneAndUpdate(
-      id,
-      { title, description, completed },
-      { new: true }
-    );
+    const { id } = req.params;
+    const { completed } = req.body;
 
-    if (!task) {
-      return res.status(404).json({
-        msg: 'Task not found',
-      });
+    const updatedTask = await Task.findByIdAndUpdate(id, { completed }, { new: true });
+
+    if (!updatedTask) {
+      return res.status(404).json({ message: "Task not found" });
     }
 
-    res.status(200).json({
-      msg: 'Task updated successfully.',
-    });
-  } catch (err) {
-    console.error('Error updating task: ', err);
-    return res.status(500).json({
-      msg: 'Error updating tasks.',
-    });
+    res.json(updatedTask);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating task", error });
   }
 });
 
@@ -98,22 +81,15 @@ app.delete('/tasks/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    const task = await Task.findByIdAndDelete(id);
+      const deletedTask = await Task.findByIdAndDelete(id);
 
-    if (!task) {
-      return res.status(404).json({
-        msg: 'Task not found',
-      });
-    }
+      if (!deletedTask) {
+          return res.status(404).json({ msg: "Task not found" });
+      }
 
-    res.status(200).json({
-      msg: 'Task deleted successfully.',
-    });
-  } catch (err) {
-    console.err('Error deleting task: ', err);
-    res.status(500).json({
-      msg: 'Error deleting task.',
-    });
+      res.status(200).json({ msg: "Task deleted successfully" });
+  } catch (error) {
+      res.status(500).json({ msg: "Error deleting task", error });
   }
 });
 
