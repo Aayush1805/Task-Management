@@ -88,4 +88,11 @@ This will start the React development server at `http://localhost:5173` (or anot
 2. Click **Add Task** to create a new task.
 3. View the task list, mark tasks as completed, or delete them.
 
+## Screenshots
 
+
+![alt text](AddTask.png)
+![alt text](TaskList.png)
+![alt text](UpdatedTaskList.png) 
+![alt text](MarkedTaskList.png) 
+![alt text](AfterDeletion.png)
