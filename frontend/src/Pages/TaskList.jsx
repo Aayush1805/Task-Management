@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Task from "../Components/task";
+import Task from "../Components/Task"
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);

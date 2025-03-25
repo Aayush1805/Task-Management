@@ -8,6 +8,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
+
 // this endpoint fetches all the available tasks from the db
 app.get('/tasks', async (req, res) => {
   try {
